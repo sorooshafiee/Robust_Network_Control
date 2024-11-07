@@ -268,7 +268,7 @@ function data = toyExampleCircle(B,C,D,O1,O2,xu,xl,uu,ul,conFS,conW1,x1,w1,deg,s
             title(sprintf('Obj. = %.2f - %.2f = %.2f\n',objPrimAg1,...
                 objPrimAg2,objPrim));
         end
-        saveas(gcf,sprintf('../Figs/FigCircle_%d_%d.pdf',round(10*sc),-deg))
+        saveas(gcf,sprintf('./Figs/FigCircle_%d_%d.pdf',round(10*sc),-deg))
     end
     data.objPrim = objPrim;
     data.objPrimAg1 = objPrimAg1;

@@ -220,7 +220,7 @@ function data = toyExampleRect(con1,con2,objP1,objP2,conW1,conW2,conFS,x1,x2,u1,
                 abs(value(objP2)),value(objRob)));
         end
 
-        saveas(gcf,sprintf('../Figs/FigRect_%s_%d.pdf',type,deg))
+        saveas(gcf,sprintf('./Figs/FigRect_%s_%d.pdf',type,deg))
     end
     data.objPrim = objPrim;
     data.objPrimAg1 = objPrimAg1;

@@ -74,4 +74,4 @@ legend(h,{'$\mathcal{CP}$','$\mathcal{NS}$','$\mathcal{DP}$ - Rect.',...
     'Position',[0.25 0.7 0.1 0.1],'Interpreter','Latex');
 
 
-saveas(gcf,'../Figs/CostPlot.pdf')
+saveas(gcf,'./Figs/CostPlot.pdf')
