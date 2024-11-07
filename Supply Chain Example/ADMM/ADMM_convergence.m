@@ -48,4 +48,4 @@ xlabel('\# iterations', 'Interpreter', 'latex', 'FontSize', 20);
 ylabel('$\sum_{i=1}^3 J_i(\beta_i^{(k)}) - J_i(\beta_i^{\star})$', 'Interpreter', 'latex', 'FontSize', 20);
 xlim([1,15]);
 grid on
-saveas(gcf, '../../Figs/ADMM', 'svg')
+%saveas(gcf, '../../Figs/ADMM', 'svg')

@@ -30,5 +30,5 @@ function p = plot_with_shade(x, Y, plt)
     end
     
     remove_border()
-    saveas(gcf, plt.path, 'svg')
+    %saveas(gcf, plt.path, 'svg')
 end

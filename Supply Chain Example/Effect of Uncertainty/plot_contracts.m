@@ -22,5 +22,5 @@ function plot_contracts(b_l, b_u, T, plt)
     ylim([0.5,5.5]);
     xlim([0, T+1]);
     remove_border()
-    saveas(gcf, plt.path, 'svg')
+    %saveas(gcf, plt.path, 'svg')
 end
