@@ -1,6 +1,5 @@
 clc
 clearvars
-addpath './plot tools/'
 addpath '../csv/'
 rng(1000)
 
@@ -113,44 +112,48 @@ for r = 1 : run_count
 end
 save results_controller
 %%
-% load results_controller
-% 
-plt.prc = 0;
-plt.alpha = 0.0;
-plt.font_size = 22;
-plt.colors = [0, 0.45, 0.75; 0, 0.45, 0.75; 0.85, 0.325, 0.01; 0.85, 0.325, 0.01; 0.925, 0.70, 0.125];
-plt.position = [0.35, 0.25, 0.4, 0.3];
-plt.grid = true;
-plt.lgd = {'Central + Serial Network', 'Central + Fully-Connected Network', 'Local + Serial Network', 'Local + Fully-Connected Network', 'Individual'};
-plt.xlabel = '\# of Residential Consumers';
-plt.ylabel = 'Execution time (s)';
-plt.path = '../Figs/execution_energy';
-plot_with_shade_modified(1:max_agents-2, cat(3, time_c_s, time_c_c, time_l_s, time_l_c, time_i), plt);
-plt.ylabel = 'Optimal Objective Value (\$)';
-plt.path = '../Figs/cost_energy';
-plot_with_shade_modified(1:max_agents-2, cat(3, obj_c_s, obj_c_c, obj_l_s, obj_l_c, obj_i)/100, plt);
+load results_controller
 
-%%
-% load results_controller
-plt.prc = 0;
-plt.alpha = 0.1;
-plt.font_size = 22;
-plt.colors = [0, 0.45, 0.75; 0.85, 0.325, 0.01; 0.925, 0.70, 0.125];
-plt.position = [0.35, 0.25, 0.4, 0.3];
-plt.grid = true;
-plt.lgd = {'Central', 'Local', 'Individual'};
-plt.xlabel = '\# of Residential Consumers';
-plt.ylabel = 'Optimization time (s)';
+figure('units','normalized','outerposition',[0 0 0.8 0.9]) 
+subplot(2,1,1);
+set(0,'defaultTextInterpreter','latex');
+labels_1 = {'CC','LC','CS','LS','D'};
+labels_2 = {'M = 3','M = 4','M = 5','M = 6'}; 
+colors = [0, 0.4470, 0.7410; 0.8500, 0.3250, 0.0980; 0.9290, 0.6940, 0.1250; ...
+          0.4940, 0.1840, 0.5560; 0.4660, 0.6740, 0.1880];
+x = {obj_c_c(2:end,:)', obj_l_c(2:end,:)', obj_c_s(2:end,:)', obj_l_s(2:end,:)', obj_i(2:end,:)'};
 
-plt.path = '../Figs/execution_energy_serial';
-plot_with_shade(1:max_agents-2, cat(3, time_c_s, time_l_s, time_i), plt);
+h = boxplotGroup(x, 'PrimaryLabels',labels_1, ...
+'SecondaryLabels',labels_2,'GroupLabelType','Vertical','Widths',0.75, ...
+'Colors',colors,'GroupType','betweenGroups'); 
+set(gca,'FontSize', 22);
+set(gca, 'TickLabelInterpreter', 'latex');
+set(findobj(h.boxplotGroup,'tag','Upper Whisker'),'LineWidth',3)
+set(findobj(h.boxplotGroup,'tag','Lower Whisker'),'LineWidth',3)
+set(findobj(h.boxplotGroup,'tag','Upper Adjacent Value'),'LineWidth',3)
+set(findobj(h.boxplotGroup,'tag','Lower Adjacent Value'),'LineWidth',3)
+set(findobj(h.boxplotGroup,'tag','Box'),'LineWidth',3)
+set(findobj(h.boxplotGroup,'tag','Median'),'LineWidth',3)
+ylabel('Cost (\$)', 'Interpreter', 'latex');
 
-plt.path = '../Figs/execution_energy_complete';
-plot_with_shade(1:max_agents-2, cat(3, time_c_c, time_l_c, time_i), plt);
-
-plt.ylabel = 'Worst-case cost (\$)';
-plt.path = '../Figs/cost_energy_serial';
-plot_with_shade(1:max_agents-2, cat(3, obj_c_s, obj_l_s, obj_i)/100, plt);
-
-plt.path = '../Figs/cost_energy_complete';
-plot_with_shade(1:max_agents-2, cat(3, obj_c_c, obj_l_c, obj_i)/100, plt);
+subplot(2,1,2);
+labels_1 = {'CC','LC','CS','LS','D'};
+labels_2 = {'M = 3','M = 4','M = 5','M = 6'}; 
+colors = [0, 0.4470, 0.7410; 0.8500, 0.3250, 0.0980; 0.9290, 0.6940, 0.1250; ...
+          0.4940, 0.1840, 0.5560; 0.4660, 0.6740, 0.1880];
+x = {time_c_c(2:end,:)', time_l_c(2:end,:)', time_c_s(2:end,:)', time_l_s(2:end,:)', time_i(2:end,:)'};
+h = boxplotGroup(x, 'PrimaryLabels',labels_1, ...
+'SecondaryLabels',labels_2,'GroupLabelType','Vertical','Widths',0.75, ...
+'Colors',colors,'GroupType','betweenGroups'); 
+set(gca,'FontSize', 22);
+set(gca, 'TickLabelInterpreter', 'latex');
+set(findobj(h.boxplotGroup,'tag','Upper Whisker'),'LineWidth',3)
+set(findobj(h.boxplotGroup,'tag','Lower Whisker'),'LineWidth',3)
+set(findobj(h.boxplotGroup,'tag','Upper Adjacent Value'),'LineWidth',3)
+set(findobj(h.boxplotGroup,'tag','Lower Adjacent Value'),'LineWidth',3)
+set(findobj(h.boxplotGroup,'tag','Box'),'LineWidth',3)
+set(findobj(h.boxplotGroup,'tag','Median'),'LineWidth',3)
+set(gca, 'YScale', 'log')
+ylabel('Optimization time (s)', 'Interpreter', 'latex');
+%ylim([0,100])
+saveas(gcf, 'Figs/compare_controller', 'svg')
